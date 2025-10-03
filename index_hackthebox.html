@@ -1,0 +1,136 @@
+<!DOCTYPE html>
+<html lang="en" data-theme="light">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>HackTheBox Style Task Manager</title>
+    <link rel="stylesheet" href="styles_hackthebox.css">
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+</head>
+<body>
+    <div class="container">
+        <header>
+            <div class="header-content">
+                <div class="header-text">
+                    <h1>Task Manager</h1>
+                    <p>Organize your tasks efficiently</p>
+                </div>
+                <div class="header-controls">
+                    <button id="dark-mode-toggle" class="theme-toggle">🌙</button>
+                </div>
+            </div>
+            
+            <div class="streak-display">
+                <span class="streak-icon">🔥</span>
+                <span id="streak-count">0 day streak</span>
+                <div class="streak-info">
+                    <span class="current-streak">Current Streak: <span id="current-streak">0</span> days</span>
+                    <span class="longest-streak">Longest Streak: <span id="longest-streak">0</span> days</span>
+                </div>
+            </div>
+            
+            <div class="completion-stats">
+                <div class="stat-item">
+                    <span class="stat-label">Overall Completion</span>
+                    <span class="stat-value" id="overall-completion">0%</span>
+                </div>
+            </div>
+            
+            <!-- HackTheBox-style Activity Calendar -->
+            <div class="hackthebox-calendar-section">
+                <h2>Activity Overview</h2>
+                <div class="hackthebox-calendar-info">
+                    <div class="legend">
+                        <span>Less</span>
+                        <div class="color-box level-0"></div>
+                        <div class="color-box level-1"></div>
+                        <div class="color-box level-2"></div>
+                        <div class="color-box level-3"></div>
+                        <div class="color-box level-4"></div>
+                        <span>More</span>
+                    </div>
+                </div>
+                <div class="calendar-container">
+                    <div class="weekday-labels-vertical">
+                        <span>Sun</span>
+                        <span>Mon</span>
+                        <span>Tue</span>
+                        <span>Wed</span>
+                        <span>Thu</span>
+                        <span>Fri</span>
+                        <span>Sat</span>
+                    </div>
+                    <div class="calendar-content">
+                        <div class="month-year-labels" id="month-year-labels"></div>
+                        <div class="hackthebox-calendar" id="hackthebox-calendar"></div>
+                    </div>
+                </div>
+            </div>
+        </header>
+        
+        <main>
+            <section class="task-input-section">
+                <form id="task-form">
+                    <div class="form-group">
+                        <input type="text" id="task-input" placeholder="Enter a new task..." required>
+                        <button type="submit" id="add-task-btn">Add Task</button>
+                    </div>
+                </form>
+            </section>
+            
+            <section class="task-controls">
+                <div class="filter-buttons">
+                    <button class="filter-btn active" data-filter="all">All Tasks</button>
+                    <button class="filter-btn" data-filter="active">Active</button>
+                    <button class="filter-btn" data-filter="completed">Completed</button>
+                </div>
+                <div class="control-buttons">
+                    <button id="calendar-toggle" class="calendar-toggle-btn">📅</button>
+                    <button id="clear-completed-btn">Clear Completed</button>
+                </div>
+            </section>
+            
+            <section class="calendar-section hidden" id="calendar-section">
+                <h2>Activity Calendar</h2>
+                <div class="calendar-header" id="calendar-header"></div>
+                <div class="calendar-grid" id="streak-calendar"></div>
+            </section>
+            
+            <section class="task-list-section">
+                <ul id="task-list"></ul>
+            </section>
+            
+            <section class="task-stats">
+                <p id="task-count">0 tasks remaining</p>
+            </section>
+        </main>
+    </div>
+    
+    <!-- Modal for daily activity details -->
+    <div class="modal" id="daily-activity-modal">
+        <div class="modal-content">
+            <span class="close">&times;</span>
+            <h2 id="modal-date">Activity Details</h2>
+            <div class="daily-stats">
+                <div class="stat-box">
+                    <span class="stat-value" id="tasks-completed">0</span>
+                    <span class="stat-label">Tasks Completed</span>
+                </div>
+                <div class="stat-box">
+                    <span class="stat-value" id="tasks-total">0</span>
+                    <span class="stat-label">Total Tasks</span>
+                </div>
+                <div class="stat-box">
+                    <span class="stat-value" id="completion-rate">0%</span>
+                    <span class="stat-label">Completion Rate</span>
+                </div>
+            </div>
+            <div class="activity-list" id="activity-list">
+                <!-- Activity items will be populated here -->
+            </div>
+        </div>
+    </div>
+    
+    <script src="script_hackthebox.js"></script>
+</body>
+</html>
